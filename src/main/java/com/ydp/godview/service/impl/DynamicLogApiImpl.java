@@ -1,4 +1,4 @@
-package com.ydp.godview.impl;
+package com.ydp.godview.service.impl;
 
 import org.springframework.stereotype.Service;
 
