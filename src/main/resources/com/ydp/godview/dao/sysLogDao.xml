@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydp.godview.dao.SysLogDao">
+	<resultMap id="ser_result" type="com.yougou.ydp.dto.ActionServiceLogDto">
+		<result property="interfaceName" column="interface_name"
+			jdbcType="VARCHAR" />
+		<result property="reqMethod" column="req_method" jdbcType="VARCHAR" />
+		<result property="reqParams" column="req_params" jdbcType="VARCHAR" />
+		<result property="reqIp" column="req_ip" jdbcType="VARCHAR" />
+		<result property="respData" column="resp_data" jdbcType="VARCHAR" />
+		<result property="accessPeriod" column="access_period"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<resultMap id="ref_result" type="com.yougou.ydp.dto.ActionRefLogDto">
+		<result property="interfaceName" column="interface_name"
+			jdbcType="VARCHAR" />
+		<result property="reqMethod" column="req_method" jdbcType="VARCHAR" />
+		<result property="reqParams" column="req_params" jdbcType="VARCHAR" />
+		<result property="respData" column="resp_data" jdbcType="VARCHAR" />
+		<result property="accessPeriod" column="access_period"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="queryActionSerLogCount" parameterType="com.yougou.ydp.dto.ActionServiceLogDto"
+		resultType="int">
+		select count(1) from tbl_service_log where 1=1
+	</select>
+
+	<select id="queryActionSerLogList" resultMap="ser_result">
+		select
+		interface_name, req_method, req_params, req_ip, resp_data,
+		access_period
+		from tbl_service_log
+	</select>
+
+	<select id="queryActionRefLogCount" parameterType="com.yougou.ydp.dto.ActionRefLogDto"
+		resultType="int">
+		select count(1) from tbl_ref_log where 1=1
+	</select>
+
+	<select id="queryActionRefLogList" parameterType="String"
+		resultMap="ref_result">
+		select
+		interface_name, req_method, req_params, resp_data,
+		access_period
+		from
+		tbl_ref_log
+		where t.id = #{actionServiceId}
+	</select>
+
+	<insert id="saveActionSerLog" useGeneratedKeys="true"
+		parameterType="java.util.List">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into tbl_service_log (interface_name, req_method, req_params,
+		req_ip, resp_data, access_period)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.interface_name}, #{item.req_method},
+			#{item.req_params}, #{item.req_ip},
+			#{item.resp_data},
+			#{item.access_period})
+		</foreach>
+	</insert>
+
+	<insert id="saveActionRefLog" useGeneratedKeys="true"
+		parameterType="java.util.List">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into tbl_ref_log (interface_name, req_method, req_params,
+		resp_data,
+		access_period, service_id)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.interface_name}, #{item.req_method},
+			#{item.req_params}, #{item.req_ip},
+			#{item.resp_data},
+			#{item.access_period}, #{item.service_id})
+		</foreach>
+	</insert>
+
+</mapper>

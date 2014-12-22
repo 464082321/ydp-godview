@@ -131,7 +131,7 @@
 		<groupId>com.yougou</groupId>
 		<artifactId>ydp-api</artifactId>
 		<version>${api.version}</version>
-	</dependency>
+	</dependency> 
 	
   </dependencies>
   <build>

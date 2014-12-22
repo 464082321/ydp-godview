@@ -1,4 +1,4 @@
-package com.ydp.godview.dao;
+package com.ydp.godview.service;
 
 import java.util.List;
 
@@ -6,14 +6,14 @@ import com.yougou.ydp.dto.ActionRefLogDto;
 import com.yougou.ydp.dto.ActionServiceLogDto;
 
 /**
- * 数据库操作类
+ * 系统日志服务接口
  * 
  * @author he.f1
  */
-public interface SysLogDao {
+public interface IDynamicLogService {
 	
 	/**
-	 * 查询被调用的接口日志信息数量
+	 * 查询被调用的接口日志信息总数
 	 * 
 	 * @return List<ActionServiceLog>
 	 */
@@ -27,7 +27,7 @@ public interface SysLogDao {
 	public List<ActionServiceLogDto> queryActionSerLogList();
 	
 	/**
-	 * 查询第三方的接口调用信息数量
+	 * 查询第三方的接口调用信息总数
 	 * 
 	 * @return List<ActionRefLog>
 	 */
@@ -39,7 +39,7 @@ public interface SysLogDao {
 	 * @return List<ActionRefLog>
 	 */
 	public List<ActionRefLogDto> queryActionRefLogList(String actionServiceId);
-
+	
 	/**
 	 * 保存日志信息
 	 * 
@@ -50,7 +50,7 @@ public interface SysLogDao {
 	/**
 	 * 保存日志信息
 	 * 
-	 * @param lstActionServiceLog
+	 * @param lstActionRefLog
 	 */
 	public void saveActionRefLog(List<ActionRefLogDto> lstActionRefLog);
 }

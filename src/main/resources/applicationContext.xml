@@ -20,9 +20,9 @@
 	<!-- 整合mybatis,在spring 的文档抠的 -->
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
 	  <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	  <property name="url" value="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8"/>
-	  <property name="username" value="root"/>
-	  <property name="password" value="haocheng"/>
+	  <property name="url" value="jdbc:mysql://10.0.30.201:3306/dms_db?useUnicode=true&amp;characterEncoding=utf-8"/>
+	  <property name="username" value="belle"/>
+	  <property name="password" value="belle@belle"/>
 	</bean>
 	
 	<!-- mybatis -->
