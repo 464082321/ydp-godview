@@ -12,27 +12,29 @@
 <body>
 	<div class="yg_body">
 		<!-- 分类路径 end-->
-		<div class="u_wrap" id="u_wrap_statements">
+		<div class="u_wrap">
+			<!-- 配置栏开始-->
+ 			<div class="u_balance_tt clearfix">
+                <ul>
+                    <li><em>接口配置面板</em></li>
+                    <li><em></em></li>
+                    <li><em>待完善...</em></li>
+                </ul>
+			</div>
+ 			<!-- 配置栏结束-->
 			<!-- 主面板开始-->
 			<div class="u_main" id="statementSearch">
 				<#if pageFinder?? && pageFinder.data?? && (pageFinder.data?size > 0)>
 	                <div class="uc_search_result cl">
-						<table class="tab_tb" >
-							<colgroup>
-								<col width="50">
-								<col width="50">
-								<col width="50">
-								<col width="50">
-								<col width="70">
-								<col width="80">
-							</colgroup>
+						<table class="tab_tb" width="80%">
 							<thead>
-								<th>接口名称</th>
-								<th>请求方法</th>
-								<th>请求参数</th>
-								<th>请求IP</th>
-								<th>请求时长 <span class="Gray">(mm)</th>
-								<th>返回结果</th>
+								<th width="130">请求的接口名称</th>
+								<th width="120">请求的方法</th>
+								<th width="130">请求的参数</th>
+								<th width="130">请求的IP</th>
+								<th width="115">请求的时长 <span class="Gray">(mm)</th>
+								<th width="220">返回的结果</th>
+								<th width="50">操作</th>
 							</thead>
 							<tbody>
 								<#list pageFinder.data as vo>
@@ -43,6 +45,7 @@
 										<td>${vo.reqIp!""}</td>
 										<td>${vo.accessPeriod!""}</td>
 										<td>${vo.respData!""}</td>
+										<td><a href="javascript:toRefLog('${vo.id!""}');" class="f_blue">查看</a></td>
 									</tr>
 								</#list>
 							</tbody>
@@ -63,4 +66,9 @@
 		</div>
 	</div>
 </body>
+<script>
+	function toRefLog(serviceId){
+		location.href="/dynamicLog/refLog.sc?serviceId=" + serviceId;
+	}
+</script>
 </html>

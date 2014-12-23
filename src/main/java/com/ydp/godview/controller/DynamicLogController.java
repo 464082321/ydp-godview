@@ -27,7 +27,7 @@ public class DynamicLogController {
 	private IDynamicLogService dynamicLogService;
 
 	/**
-	 * 查询被调用的接口日志信息
+	 * 查询接口调用的日志信息
 	 * 
 	 * @param modelMap
 	 * @return
@@ -50,17 +50,17 @@ public class DynamicLogController {
 	}
 
 	/**
-	 * 第三方的接口调用信息
+	 * 查询第三方接口调用的日志信息
 	 * 
 	 * @param modelMap
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/refLog")
-	public String refLogList(String billId, ModelMap modelMap) throws Exception {
-		String actionServiceId = "";
-		List<RefLogDto> list = dynamicLogService.queryActionRefLogList(actionServiceId);
-		modelMap.addAttribute("refLogList", list);
+	public String refLogList(String serviceId, ModelMap modelMap) throws Exception {
+		List<RefLogDto> refLogList = dynamicLogService.queryActionRefLogList(serviceId);
+		modelMap.addAttribute("refLogList", refLogList);
+		modelMap.addAttribute("serviceId", serviceId);
 		return "dynamicLog/refLog";
 	}
 

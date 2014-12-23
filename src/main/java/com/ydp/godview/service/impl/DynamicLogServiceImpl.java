@@ -25,7 +25,7 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 	private SysLogDao sysLogDao;
 
 	/**
-	 * 查询被调用的接口日志信息数量
+	 * 查询接口调用的记录数
 	 * 
 	 * @return int
 	 */
@@ -34,7 +34,7 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 	}
 
 	/**
-	 * 查询被调用的接口日志信息
+	 * 查询接口调用的日志信息
 	 * 
 	 * @return List<ActionServiceLog>
 	 */
@@ -43,25 +43,16 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 	}
 
 	/**
-	 * 查询第三方的接口调用信息数量
-	 * 
-	 * @return int
-	 */
-	public int queryActionRefLogCount(String actionServiceId) {
-		return sysLogDao.queryActionRefLogCount(actionServiceId);
-	}
-
-	/**
-	 * 查询第三方的接口调用信息
+	 * 查询第三方接口调用的日志信息
 	 * 
 	 * @return List<ActionRefLog>
 	 */
-	public List<RefLogDto> queryActionRefLogList(String actionServiceId) {
-		return sysLogDao.queryActionRefLogList(actionServiceId);
+	public List<RefLogDto> queryActionRefLogList(String serviceId) {
+		return sysLogDao.queryActionRefLogList(serviceId);
 	}
 
 	/**
-	 * 保存日志信息
+	 * 保存接口调用的日志信息
 	 * 
 	 * @param lstActionServiceLog
 	 */
@@ -70,7 +61,7 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 	}
 
 	/**
-	 * 保存日志信息
+	 * 保存第三方接口调用的日志信息
 	 * 
 	 * @param lstActionRefLog
 	 */

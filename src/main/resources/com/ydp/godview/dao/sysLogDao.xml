@@ -25,7 +25,7 @@
 
 	<select id="queryActionSerLogCount" parameterType="com.ydp.godview.model.ServiceLogDto"
 		resultType="int">
-		select count(1) from tbl_service_log where 1=1
+		select count(1) from tbl_service_log where 1 = 1
 	</select>
 
 	<select id="queryActionSerLogList" resultMap="ser_result">
@@ -35,19 +35,14 @@
 		from tbl_service_log
 	</select>
 
-	<select id="queryActionRefLogCount" parameterType="com.ydp.godview.model.RefLogDto"
-		resultType="int">
-		select count(1) from tbl_ref_log where 1=1
-	</select>
-
 	<select id="queryActionRefLogList" parameterType="String"
 		resultMap="ref_result">
 		select
 		interface_name, req_method, req_params, resp_data,
 		access_period
 		from
-		tbl_ref_log
-		where t.id = #{actionServiceId}
+		tbl_ref_log t
+		where t.service_id = #{serviceId}
 	</select>
 
 	<insert id="saveActionSerLog" useGeneratedKeys="true"
