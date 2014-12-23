@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ydp.godview.dao.SysLogDao">
-	<resultMap id="ser_result" type="com.yougou.ydp.dto.ActionServiceLogDto">
+	<resultMap id="ser_result" type="com.ydp.godview.model.ServiceLogDto">
 		<result property="interfaceName" column="interface_name"
 			jdbcType="VARCHAR" />
 		<result property="reqMethod" column="req_method" jdbcType="VARCHAR" />
@@ -13,7 +13,7 @@
 			jdbcType="INTEGER" />
 	</resultMap>
 
-	<resultMap id="ref_result" type="com.yougou.ydp.dto.ActionRefLogDto">
+	<resultMap id="ref_result" type="com.ydp.godview.model.RefLogDto">
 		<result property="interfaceName" column="interface_name"
 			jdbcType="VARCHAR" />
 		<result property="reqMethod" column="req_method" jdbcType="VARCHAR" />
@@ -23,7 +23,7 @@
 			jdbcType="INTEGER" />
 	</resultMap>
 
-	<select id="queryActionSerLogCount" parameterType="com.yougou.ydp.dto.ActionServiceLogDto"
+	<select id="queryActionSerLogCount" parameterType="com.ydp.godview.model.ServiceLogDto"
 		resultType="int">
 		select count(1) from tbl_service_log where 1=1
 	</select>
@@ -35,7 +35,7 @@
 		from tbl_service_log
 	</select>
 
-	<select id="queryActionRefLogCount" parameterType="com.yougou.ydp.dto.ActionRefLogDto"
+	<select id="queryActionRefLogCount" parameterType="com.ydp.godview.model.RefLogDto"
 		resultType="int">
 		select count(1) from tbl_ref_log where 1=1
 	</select>

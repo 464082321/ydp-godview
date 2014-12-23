@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.ydp.godview.dao.SysLogDao;
+import com.ydp.godview.model.RefLogDto;
+import com.ydp.godview.model.ServiceLogDto;
 import com.ydp.godview.service.IDynamicLogService;
 import com.yougou.ydp.dto.ActionRefLogDto;
 import com.yougou.ydp.dto.ActionServiceLogDto;
@@ -36,7 +38,7 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 	 * 
 	 * @return List<ActionServiceLog>
 	 */
-	public List<ActionServiceLogDto> queryActionSerLogList() {
+	public List<ServiceLogDto> queryActionSerLogList() {
 		return sysLogDao.queryActionSerLogList();
 	}
 
@@ -54,7 +56,7 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 	 * 
 	 * @return List<ActionRefLog>
 	 */
-	public List<ActionRefLogDto> queryActionRefLogList(String actionServiceId) {
+	public List<RefLogDto> queryActionRefLogList(String actionServiceId) {
 		return sysLogDao.queryActionRefLogList(actionServiceId);
 	}
 
