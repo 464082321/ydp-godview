@@ -49,37 +49,37 @@ public class ReflectUtils {
 					if(value != null){
 						paramTypes[0] = field.getType();
 //						System.out.println("类型:" + field.getType().getSimpleName());
-						if(field.getGenericType() instanceof ParameterizedType) {
+						if("Set".equals(field.getType().getSimpleName())) {
 							/** 针对set方法进行反射封装 **/
-							if("Set".equals(field.getType().getSimpleName())) {
-								
-								//封装到本对象里面
-								Method method = null;
-								//调用相应对象的set方法
-								StringBuffer methodName = new StringBuffer("set");
-								methodName.append(fieldName.substring(0, 1).toUpperCase());
-								methodName.append(fieldName.substring(1, fieldName.length()));
-								method = clazz.getMethod(methodName.toString(), paramTypes);
-								
-								
-								ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
-								
-								Type[] types = parameterizedType.getActualTypeArguments();
-								Set set = new HashSet();
-								for(Type type : types) {
-									Class ptClazz = (Class) type;
-									
-									Set<Map<String, Object>> ptSet = (Set<Map<String, Object>>) value;//转到了
-									Object setChild = null;
-									
-									for(Map<String, Object> pts : ptSet) {
-										setChild = getBean(pts, ptClazz);
-										//调用set的add方法给set赋值
-										set.add(setChild);
-									}
-								}
-								method.invoke(obj, set);
-							}
+//							if("Set".equals(field.getType().getSimpleName())) {
+//								
+//								//封装到本对象里面
+//								Method method = null;
+//								//调用相应对象的set方法
+//								StringBuffer methodName = new StringBuffer("set");
+//								methodName.append(fieldName.substring(0, 1).toUpperCase());
+//								methodName.append(fieldName.substring(1, fieldName.length()));
+//								method = clazz.getMethod(methodName.toString(), paramTypes);
+//								
+//								
+//								ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+//								
+//								Type[] types = parameterizedType.getActualTypeArguments();
+//								Set set = new HashSet();
+//								for(Type type : types) {
+//									Class ptClazz = (Class) type;
+//									
+//									Set<Map<String, Object>> ptSet = (Set<Map<String, Object>>) value;//转到了
+//									Object setChild = null;
+//									
+//									for(Map<String, Object> pts : ptSet) {
+//										setChild = getBean(pts, ptClazz);
+//										//调用set的add方法给set赋值
+//										set.add(setChild);
+//									}
+//								}
+//								method.invoke(obj, set);
+//							}
 							
 						} else {//普通的get,set
 							Method method = null;
