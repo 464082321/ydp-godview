@@ -46,4 +46,6 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<import resource="classpath:gd-rabbitmq.xml"/>
 </beans>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.1.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 定义rabbitmq连接工厂，生产环境使用集群配置，支持failover -->
+	<rabbit:connection-factory id="rmq-connectionFactory" addresses="localhost" />
+
+	<rabbit:admin connection-factory="rmq-connectionFactory" />
+
+	<bean id="jsonMessageConverter"	class="org.springframework.amqp.support.converter.JsonMessageConverter">
+		<property name="classMapper">
+			<bean class="org.springframework.amqp.support.converter.DefaultClassMapper">
+			</bean>
+		</property>
+	</bean>
+
+    <bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+        <property name="connectionFactory" ref="rmq-connectionFactory"/>
+        <property name="messageConverter" ref="jsonMessageConverter"/>
+    </bean>
+    
+    <!-- distribute receive MQ -->
+	<bean id="messageInfoHandler" class="com.ydp.godview.rabbitmq.MqMessageInfoHandler" />
+	
+	<rabbit:queue id="ydp.api.log.queue" name="ydp.api.log.queue">
+		<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all" />
+		</rabbit:queue-arguments>
+	</rabbit:queue>
+	
+	<rabbit:listener-container connection-factory="rmq-connectionFactory" concurrency="2" message-converter="jsonMessageConverter"> 
+		<rabbit:listener ref="messageInfoHandler" method="doMessage2" queues="ydp.api.log.queue"/> 
+	</rabbit:listener-container>
+		
+</beans>
