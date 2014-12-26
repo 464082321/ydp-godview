@@ -48,10 +48,7 @@
 		where t.service_id = #{serviceId}
 	</select>
 
-	<insert id="saveActionSerLog" useGeneratedKeys="true" parameterType="com.ydp.godview.model.ServiceLogDto">
-		<selectKey keyProperty="id" resultType="int" order="AFTER">
-			SELECT LAST_INSERT_ID() AS ID    
-    	</selectKey>
+    <insert id="saveActionSerLog" useGeneratedKeys="true" keyProperty="id" parameterType="com.ydp.godview.model.ServiceLogDto">  
 		insert into tbl_service_log (id, interface_name, req_method, req_params, req_ip, resp_data, err_msg, access_period)
 		values (#{id}, #{interfaceName}, #{reqMethod}, #{reqParams}, #{reqIp}, #{respData}, #{errMsg}, #{accessPeriod})
 	</insert>

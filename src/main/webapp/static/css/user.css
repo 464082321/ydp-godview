@@ -3,14 +3,6 @@ body {
 	letter-spacing: 0
 }
 
-.navList {
-	width: auto;
-}
-
-.cl {
-	clear: both;
-}
-/*usercenter*/
 input {
 	vertical-align: middle;
 }
@@ -21,39 +13,15 @@ select {
 	letter-spacing: 2px;
 }
 
-.yg_Navigate {
-	padding-bottom: 8px;
-}
-
-.c_f70 {
-	color: #f70;
-}
-
-.f_green {
-	color: #019a32;
-}
-
 .yg_body {
 	background: #fff;
 	width: 1100px;
 	margin: 0 auto;
 }
 
-.w1200,.ygwrap {
-	width: 990px;
-}
-
 .u_wrap {
 	background:;
 	border: 1px #dfdfdf solid;
-}
-
-.yg_footer_nav {
-	min-width: 990px;
-}
-
-.yg_Navigate a {
-	color: #36c;
 }
 
 .inptxt {
@@ -63,220 +31,17 @@ select {
 	padding: 0 5px;
 	color: #666;
 }
-/*左侧导航*/
-.u_nav {
-	width: 135px;
-	float: left;
-	padding: 15px;
-	position: absolute;
-}
 
-.u_nav h2 {
-	font-size: 16px;
-	margin-bottom: 20px;
-}
-
-.u_nav li {
-	padding: 5px 10px;
-	font-size: 14px;
-	background: url(../images/sf_user.png) right -86px no-repeat;
-	margin-bottom: 6px;
-}
-
-.u_main {
-	background: #fff;
-	padding: 20px;
-	min-height: 250px;
-	padding: 20px;
-	min-height: 250px;
-}
-
-.u_nav li.on {
-	background-position: right -112px;
-	color: #f80;
-}
-/*导航菜单加上颜色*/
-#u_wrap_order .on_order {
-	background-position: right -112px
-}
-
-#u_wrap_order .on_order a {
-	color: #f80
-}
-
-#u_wrap_saleservice .on_saleservice {
-	background-position: right -112px
-}
-
-#u_wrap_saleservice .on_saleservice a {
-	color: #f80
-}
-
-#u_wrap_address .on_address {
-	background-position: right -112px
-}
-
-#u_wrap_address .on_address a {
-	color: #f80
-}
-
-#u_wrap_balance .on_balance {
-	background-position: right -112px
-}
-
-#u_wrap_balance .on_balance a {
-	color: #f80
-}
-
-#u_wrap_profile .on_profile {
-	background-position: right -112px
-}
-
-#u_wrap_profile .on_profile a {
-	color: #f80
-}
-
-#u_wrap_security .on_security {
-	background-position: right -112px
-}
-
-#u_wrap_security .on_security a {
-	color: #f80
-}
-
-#u_wrap_income .on_income {
-	background-position: right -112px
-}
-
-#u_wrap_income .on_income a {
-	color: #f80
-}
-
-#u_wrap_myseller .on_myseller {
-	background-position: right -112px
-}
-
-#u_wrap_myseller .on_myseller a {
-	color: #f80
-}
-
-#u_wrap_newseller .on_newseller {
-	background-position: right -112px
-}
-
-#u_wrap_newseller .on_newseller a {
-	color: #f80
-}
-
-#u_wrap_statements .on_statements {
-	background-position: right -112px
-}
-
-#u_wrap_statements .on_statements a {
-	color: #f80
-}
-
-#u_wrap_income .on_income {
-	background-position: right -112px
-}
-
-#u_wrap_income .on_income a {
-	color: #f80
-}
-/*btn*/
-.u_btn_org28,.u_btn_fff28,.u_btn_wht,.u_btn_paleorg28,.u_btn_wht30,.u_btn_120,.u_btn_77
-	{
-	background: url(../images/sf_user.png) no-repeat;
-	line-height: 28px;
-	color: #fff;
-	width: 78px;
-	text-align: center;
-	display: inline-block;
-}
-
-td .u_btn_org28,td .u_btn_fff28,td .u_btn_wht,td .u_btn_paleorg28 {
-	margin-bottom: 5px;
-}
-
-.u_btn_paleorg28 {
-	background-position: 0 -182px;
-}
-
-.u_btn_org28:hover,.u_btn_paleorg28:hover {
-	color: #fff;
-}
-
-.u_btn_fff28 {
-	background-position: 0 -31px;
-	color: #666;
-}
-
-.u_btn_wht {
-	background-position: 0 -154px;
-	line-height: 23px;
-	height: 25px;
-	width: 50px;
-	color: #666;
-	border: none;
-}
-
-.u_btn_f8 {
-	background: #f8f8f8;
-	border: 1px #ddd solid;
-	padding: 0 20px;
-	line-height: 20px;
-	height: 25px;
-}
-
-.u_btn_f8_ex {
-	height: 26px;
-	margin-left: -3px;
-}
-
-.u_btn_wht30 {
-	background-position: 0 -387px;
-	width: 87px;
-	color: #666;
-	font-size: 14px;
-	height: 31px;
-}
-
-.u_btn_120 {
-	width: 120px;
-	height: 27px;
-	line-height: 27px;
-	background-position: 0 -534px;
-	border: none;
-	color: #666;
-}
-
-.u_btn_77 {
-	width: 77px;
-	height: 27px;
-	line-height: 27px;
-	background-position: 0 -499px;
-	border: none;
-	color: #666;
-}
-
-.u_btn_org,.u_btn_org:hover {
-	width: 159px;
-	background: #ff7103;
-	height: 47px;
-	text-align: center;
-	font-size: 18px;
-	font-weight: bold;
-	display: inline-block;
-	*display: inline;
-	*zoom: 1;
-	line-height: 47px;
-	color: #fff;
-	margin: 0 10px;
-	font-family: 微软雅黑;
-	border: none;
-	cursor: pointer;
-}
 /*table*/
+table {
+	table-layout: fixed;
+}
+
+td {
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
 .tab_tb {
 	border-collapse: collapse;
 	width: 100%;
@@ -305,7 +70,6 @@ td .u_btn_org28,td .u_btn_fff28,td .u_btn_wht,td .u_btn_paleorg28 {
 
 .tab_tb th {
 	height: 34px;
-	font-weight: normal;
 	border-collapse: collapse;
 }
 

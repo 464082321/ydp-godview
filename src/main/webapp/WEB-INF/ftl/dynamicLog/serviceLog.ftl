@@ -26,15 +26,16 @@
 			<div class="u_main" id="statementSearch">
 				<#if pageFinder?? && pageFinder.data?? && (pageFinder.data?size > 0)>
 	                <div class="uc_search_result cl">
-						<table class="tab_tb" width="80%">
+						<table class="tab_tb">
 							<thead>
-								<th width="130">请求的接口名称</th>
-								<th width="120">请求的方法</th>
-								<th width="130">请求的参数</th>
-								<th width="130">请求的IP</th>
-								<th width="115">请求的时长 <span class="Gray">(mm)</th>
-								<th width="220">返回的结果</th>
-								<th width="50">操作</th>
+								<th width="20%">接口名称</th>
+								<th width="12%">请求方法</th>
+								<th width="15%">请求参数</th>
+								<th width="8%">请求IP</th>
+								<th width="25%">返回结果</th>
+								<th width="10%">异常信息</th>
+								<th width="5%">请求时长</th>
+								<th width="5%">操作</th>
 							</thead>
 							<tbody>
 								<#list pageFinder.data as vo>
@@ -43,8 +44,9 @@
 										<td>${vo.reqMethod!""}</td>
 										<td>${vo.reqParams!""}</td>
 										<td>${vo.reqIp!""}</td>
-										<td>${vo.accessPeriod!""}</td>
 										<td>${vo.respData!""}</td>
+										<td>${vo.errMsg!""}</td>
+										<td>${vo.accessPeriod!""}</td>
 										<td><a href="javascript:toRefLog('${vo.id!""}');" class="f_blue">查看</a></td>
 									</tr>
 								</#list>

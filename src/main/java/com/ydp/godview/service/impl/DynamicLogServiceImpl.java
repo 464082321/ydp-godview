@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
@@ -71,8 +70,9 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 			// 封装接口调用的日志信息
 			ServiceLogDto serviceLog = this.setServiceLogInfo(actionServiceLog);
 			// 保存接口调用的日志信息
-			int serviceId = sysLogDao.saveActionSerLog(serviceLog);
-
+			sysLogDao.saveActionSerLog(serviceLog);
+			int serviceId = serviceLog.getId();
+			
 			// 封装第三方接口调用的日志信息
 			Set<ActionRefLogDto> refLogs = actionServiceLog.getRefLogs();
 			if (CollectionUtils.isNotEmpty(refLogs)) {
@@ -125,7 +125,7 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 		RefLogDto refLog = new RefLogDto();
 		refLog.setInterfaceName(actionRefLog.getInterfaceName());
 		refLog.setReqMethod(actionRefLog.getReqMethod());
-		Object[] objParam2 = actionRefLog.getReqParam();
+		Object[] objParam2 = actionRefLog.getReqParams();
 		refLog.setReqParams(this.converStr(objParam2));
 		Object objRespData2 = actionRefLog.getRespData();
 		if (null != objRespData2) {
