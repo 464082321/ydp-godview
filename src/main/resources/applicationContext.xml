@@ -9,22 +9,37 @@
 	http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
 	default-lazy-init="true">
-	
+
 	<!-- 开启自动切面代理 -->
 	<aop:aspectj-autoproxy />
-	
-	<!-- 开启注解  -->
+
+	<!-- 开启注解 -->
 	<context:annotation-config />
 	<context:component-scan base-package="com.ydp.godview" />
-	
-	<!-- 整合mybatis,在spring 的文档抠的 -->
-	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-	  <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	  <property name="url" value="jdbc:mysql://10.0.30.201:3306/dms_db?useUnicode=true&amp;characterEncoding=utf-8"/>
-	  <property name="username" value="belle"/>
-	  <property name="password" value="belle@belle"/>
+
+	<bean id="parentDataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		abstract="true" destroy-method="close">
+		<!-- Connection Pooling Info -->
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="10" />
+		<property name="minIdle" value="0" />
+		<property name="defaultAutoCommit" value="false" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="numTestsPerEvictionRun" value="3" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="validationQuery" value="SELECT 1" />
 	</bean>
-	
+	<!-- 整合mybatis,在spring 的文档抠的 -->
+	<bean id="dataSource" parent="parentDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://10.0.30.201:3306/dms_db?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="belle" />
+		<property name="password" value="belle@belle" />
+	</bean>
+
 	<!-- mybatis -->
 	<bean id="sqlSessionFactoryMember" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
@@ -35,17 +50,17 @@
 		</property>
 		<property name="configLocation" value="classpath:mybatis-conf.xml" />
 	</bean>
-	
+
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.ydp.godview.dao" />
 	</bean>
-	
-	<!-- JDBC 据源事务管理   -->
+
+	<!-- JDBC 据源事务管理 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
-	<import resource="classpath:gd-rabbitmq.xml"/>
+
+	<import resource="classpath:gd-rabbitmq.xml" />
 </beans>

@@ -3,12 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ydp.godview.dao.SysLogDao">
 	<resultMap id="ser_result" type="com.ydp.godview.model.ServiceLogDto">
+		<result property="id" column="id" jdbcType="VARCHAR" />
 		<result property="interfaceName" column="interface_name"
 			jdbcType="VARCHAR" />
 		<result property="reqMethod" column="req_method" jdbcType="VARCHAR" />
 		<result property="reqParams" column="req_params" jdbcType="VARCHAR" />
 		<result property="reqIp" column="req_ip" jdbcType="VARCHAR" />
 		<result property="respData" column="resp_data" jdbcType="VARCHAR" />
+		<result property="errMsg" column="err_data" jdbcType="VARCHAR" />
 		<result property="accessPeriod" column="access_period"
 			jdbcType="INTEGER" />
 	</resultMap>
@@ -30,6 +32,7 @@
 
 	<select id="queryActionSerLogList" resultMap="ser_result">
 		select
+		id,
 		interface_name, req_method, req_params, req_ip, resp_data,
 		access_period
 		from tbl_service_log
@@ -45,40 +48,20 @@
 		where t.service_id = #{serviceId}
 	</select>
 
-	<insert id="saveActionSerLog" useGeneratedKeys="true"
-		parameterType="java.util.List">
-		<selectKey resultType="long" keyProperty="id" order="AFTER">
-			SELECT
-			LAST_INSERT_ID()
-		</selectKey>
-		insert into tbl_service_log (interface_name, req_method, req_params,
-		req_ip, resp_data, access_period)
-		values
-		<foreach collection="list" item="item" index="index"
-			separator=",">
-			(#{item.interface_name}, #{item.req_method},
-			#{item.req_params}, #{item.req_ip},
-			#{item.resp_data},
-			#{item.access_period})
-		</foreach>
+	<insert id="saveActionSerLog" useGeneratedKeys="true" parameterType="com.ydp.godview.model.ServiceLogDto">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID() AS ID    
+    	</selectKey>
+		insert into tbl_service_log (id, interface_name, req_method, req_params, req_ip, resp_data, err_msg, access_period)
+		values (#{id}, #{interfaceName}, #{reqMethod}, #{reqParams}, #{reqIp}, #{respData}, #{errMsg}, #{accessPeriod})
 	</insert>
 
-	<insert id="saveActionRefLog" useGeneratedKeys="true"
-		parameterType="java.util.List">
-		<selectKey resultType="long" keyProperty="id" order="AFTER">
-			SELECT
-			LAST_INSERT_ID()
-		</selectKey>
-		insert into tbl_ref_log (interface_name, req_method, req_params,
-		resp_data,
-		access_period, service_id)
+	<insert id="saveActionRefLog" useGeneratedKeys="true" parameterType="java.util.List">
+		insert into tbl_ref_log (interface_name, req_method, req_params, resp_data, access_period, service_id)
 		values
-		<foreach collection="list" item="item" index="index"
-			separator=",">
-			(#{item.interface_name}, #{item.req_method},
-			#{item.req_params}, #{item.req_ip},
-			#{item.resp_data},
-			#{item.access_period}, #{item.service_id})
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.interfaceName}, #{item.reqMethod}, #{item.reqParams}, #{item.respData},
+			#{item.accessPeriod}, #{item.serviceId})
 		</foreach>
 	</insert>
 

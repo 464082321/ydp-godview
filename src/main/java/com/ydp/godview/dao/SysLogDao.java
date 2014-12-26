@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ydp.godview.model.RefLogDto;
 import com.ydp.godview.model.ServiceLogDto;
-import com.yougou.ydp.dto.ActionRefLogDto;
-import com.yougou.ydp.dto.ActionServiceLogDto;
 
 /**
  * 数据库操作类
@@ -40,14 +38,14 @@ public interface SysLogDao {
 	/**
 	 * 保存接口调用的日志信息
 	 * 
-	 * @param lstActionServiceLog
+	 * @param serviceLog
 	 */
-	public void saveActionSerLog(List<ActionServiceLogDto> lstActionServiceLog);
+	public int saveActionSerLog(ServiceLogDto serviceLog);
 	
 	/**
 	 * 保存第三方接口调用的日志信息
 	 * 
-	 * @param lstActionServiceLog
+	 * @param lstRefLog
 	 */
-	public void saveActionRefLog(List<ActionRefLogDto> lstActionRefLog);
+	public void saveActionRefLog(List<RefLogDto> lstRefLog);
 }

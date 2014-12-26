@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ydp.godview.model.RefLogDto;
 import com.ydp.godview.model.ServiceLogDto;
-import com.yougou.ydp.dto.ActionRefLogDto;
 import com.yougou.ydp.dto.ActionServiceLogDto;
 
 /**
@@ -36,16 +35,10 @@ public interface IDynamicLogService {
 	public List<RefLogDto> queryActionRefLogList(String actionServiceId);
 	
 	/**
-	 * 保存接口调用的日志信息
+	 * 保存日志信息
 	 * 
-	 * @param lstActionServiceLog
+	 * @param serviceLogDto
+	 * @return
 	 */
-	public void saveActionSerLog(List<ActionServiceLogDto> lstActionServiceLog);
-	
-	/**
-	 * 保存第三方接口调用的日志信息
-	 * 
-	 * @param lstActionRefLog
-	 */
-	public void saveActionRefLog(List<ActionRefLogDto> lstActionRefLog);
+	public boolean sendLogs(ActionServiceLogDto serviceLogDto) throws Exception;
 }

@@ -14,6 +14,9 @@ public class ServiceLogDto implements Serializable{
 	/****/
 	private static final long serialVersionUID = 7753173321109233886L;
 	
+	/** 主键Id **/
+	private int id;
+	
 	/** 请求的接口名称 **/
 	private String interfaceName;
 	
@@ -37,6 +40,14 @@ public class ServiceLogDto implements Serializable{
 	
 	/** 接口内请求其他第三方接口的对象信息集合 **/
 	private Set<RefLogDto> refLogs = new HashSet<RefLogDto>();
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getInterfaceName() {
 		return interfaceName;
@@ -97,11 +108,8 @@ public class ServiceLogDto implements Serializable{
 	public Set<RefLogDto> getRefLogs() {
 		return refLogs;
 	}
-
-	/** 添加refLog **/
-	public void addRefLog(RefLogDto refLog) {
-		if(refLogs.size() > 0 && refLogs.contains(refLog)) {
-			refLogs.add(refLog);
-		}
+	
+	public void setRefLogs(Set<RefLogDto> refLogs) {
+		this.refLogs = refLogs;
 	}
 }

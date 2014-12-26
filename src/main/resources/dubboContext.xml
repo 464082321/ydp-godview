@@ -16,13 +16,4 @@
          
         <!-- 公告-->
 		<dubbo:reference id="noticeApi" interface="com.yougou.ydp.api.INoticeApi" timeout="300000" check="false" version="2.0" protocol="dubbo"  />
-		
-		<!-- Dubbo的MonitorService 这个不用了
-		<dubbo:reference id="monitorService" interface="com.alibaba.dubbo.monitor.MonitorService" timeout="300000" check="false" protocol="dubbo"  />
-		-->
-		
-		<!-- 给ydp-core提供的接口实现 -->
-		<dubbo:service interface="com.yougou.ydp.api.IDynamicLogApi" 
-			ref="dynamicLogApi" loadbalance="roundrobin" protocol="dubbo" timeout="300000" retries="0" version="2.7"/>
-		<bean id="dynamicLogApi" class="com.ydp.godview.api.impl.DynamicLogApiImpl" />
 </beans>
