@@ -19,9 +19,11 @@ public class MqMessageInfoHandler {
 		try {
 			Map<String, Object>[] refLogsArray = mapper.convertValue(asldMap.get("refLogs"), Map[].class);
 			ActionRefLogDto arfl = null;
-			for(Map<String, Object> refLog : refLogsArray) {
-				arfl = ReflectUtils.getBean(refLog, ActionRefLogDto.class);
-				asld.addRefLog(arfl);
+			if(null != refLogsArray) {
+				for(Map<String, Object> refLog : refLogsArray) {
+					arfl = ReflectUtils.getBean(refLog, ActionRefLogDto.class);
+					asld.addRefLog(arfl);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
