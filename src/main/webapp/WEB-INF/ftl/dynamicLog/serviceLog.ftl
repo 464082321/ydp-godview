@@ -32,6 +32,7 @@
                 <#include "/settingOperation/setting_list.ftl">
 	                <div class="venter">
 	                	<input type="button" id="saveBtn" value="确认保存" class="cButton"/>
+	                	<input type="button" id="udRMdBtn" value="更新API方法" class="cButton"/>
 	                </div>
                 </form>
 			</div>
@@ -100,6 +101,20 @@
 				type : "POST",
 				data : "methodName=" + tdata,
 				url : "/dynamicLog/udMethods.sc",
+				error : function(XmlHttpRequest, textStatus, errorThrown) {
+					alert('保存失败:' + errorThrown);
+				},
+				success : function(data) {
+					alert("save success!");
+				}
+			});
+		});
+		
+		//更新远程API的方法列表
+		$("#udRMdBtn").click(function(){
+			$.ajax({
+				type : "POST",
+				url : "/dynamicLog/udSettings.sc",
 				error : function(XmlHttpRequest, textStatus, errorThrown) {
 					alert('保存失败:' + errorThrown);
 				},

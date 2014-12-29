@@ -108,5 +108,15 @@ public class DynamicLogController {
 		jsonObj.put("data", null);
 		return jsonObj.toString();
 	}
-
+	
+	@RequestMapping("/udSettings")
+	@ResponseBody
+	public String udSettings() {
+		settingLogService.updateSettingsByRemoteApi();
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("state", StateCode.SUCCESS);
+		jsonObj.put("msg", "");
+		jsonObj.put("data", null);
+		return jsonObj.toString();
+	}
 }

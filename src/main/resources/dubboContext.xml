@@ -16,4 +16,6 @@
          
         <!-- 公告-->
 		<dubbo:reference id="noticeApi" interface="com.yougou.ydp.api.INoticeApi" timeout="300000" check="false" version="2.0" protocol="dubbo"  />
+		
+		<dubbo:reference id="actionLogApi" interface="com.yougou.ydp.api.IActionLogApi" protocol="dubbo" timeout="300000" version="2.8"/>
 </beans>

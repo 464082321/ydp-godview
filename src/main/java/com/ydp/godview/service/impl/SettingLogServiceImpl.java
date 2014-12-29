@@ -14,11 +14,15 @@ import com.ydp.godview.model.SettingInterfaceDto;
 import com.ydp.godview.model.SettingLogDto;
 import com.ydp.godview.model.SettingMethodDto;
 import com.ydp.godview.service.ISettingLogService;
+import com.yougou.ydp.api.IActionLogApi;
 
 @Service
 public class SettingLogServiceImpl implements ISettingLogService {
 	@Resource
 	private SettingLogDao settingLogDao;
+	
+	@Resource
+	private IActionLogApi actionLogApi;
 
 	public List<SettingInterfaceDto> listSettings() {
 		List<SettingInterfaceDto> dtoList = null;
@@ -89,4 +93,43 @@ public class SettingLogServiceImpl implements ISettingLogService {
 		settingLogDao.butchUdSetting(lstSettingLogDto);
 	}
 
+	public void updateSettingsByRemoteApi() {
+		Map<String, List<String>> apis = actionLogApi.listMonitorMethods();
+		if(null != apis && apis.size() > 0) {
+			List<SettingLogDto> dbSettings = settingLogDao.querySettings(null);
+			//封装成List<String>做比对
+			List<String> dbStrSettings = new ArrayList<String>();
+			for(SettingLogDto sld : dbSettings) {
+				dbStrSettings.add(sld.getMethodName());
+			}
+			
+			List<SettingLogDto> needToSaveList = new ArrayList<SettingLogDto>();
+			SettingLogDto needToSave = null;
+			for(String interfaceName : apis.keySet()) {
+				for(String method : apis.get(interfaceName)) {
+					if(!dbStrSettings.contains(interfaceName + "." + method)) {
+						needToSave = new SettingLogDto();
+						needToSave.setMethodName(interfaceName + "." + method);
+						needToSave.setIsOpen("0");
+						needToSaveList.add(needToSave);
+					}
+				}
+			}
+			
+			if(null != needToSaveList && needToSaveList.size() > 0) {
+				for(SettingLogDto sld : needToSaveList) {
+//					settingLogDao.addSetting(sld);
+					System.out.println(sld.getMethodName());
+				}
+			}
+			
+//			List<SettingLogDto> newSettings = settingLogDao.querySettings(null);
+//			newSettings.removeAll(dbSettings);
+//			
+//			//删掉多余的Settings
+//			for(SettingLogDto sld: newSettings) {
+//				settingLogDao.delSetting(sld.getMethodName());
+//			}
+		}
+	}
 }

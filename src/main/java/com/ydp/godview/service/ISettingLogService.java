@@ -48,4 +48,9 @@ public interface ISettingLogService {
 	 * @param lstSettingLogDto
 	 */
 	public void butchUdSetting(List<SettingLogDto> lstSettingLogDto);
+	
+	/**
+	 * 根据远程接口获取本地的设置数据
+	 */
+	public void updateSettingsByRemoteApi();
 }
