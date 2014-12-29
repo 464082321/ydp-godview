@@ -23,13 +23,13 @@ public class SettingLogServiceImpl implements ISettingLogService {
 	public List<SettingInterfaceDto> listSettings() {
 		List<SettingInterfaceDto> dtoList = null;
 		List<SettingLogDto> dbList = settingLogDao.querySettings(null);
-		if(null != dbList && dbList.size() > 0) {
+		if (null != dbList && dbList.size() > 0) {
 			Map<String, List<SettingLogDto>> tmpMap = new HashMap<String, List<SettingLogDto>>();
 			String interfaceName;
 			List<SettingLogDto> mapLogList = null;
-			for(SettingLogDto sld : dbList) {
+			for (SettingLogDto sld : dbList) {
 				interfaceName = sld.getMethodName().substring(0, sld.getMethodName().lastIndexOf("."));
-				if(tmpMap.containsKey(interfaceName)) {
+				if (tmpMap.containsKey(interfaceName)) {
 					tmpMap.get(interfaceName).add(sld);
 				} else {
 					mapLogList = new ArrayList<SettingLogDto>();
@@ -37,26 +37,26 @@ public class SettingLogServiceImpl implements ISettingLogService {
 					tmpMap.put(interfaceName, mapLogList);
 				}
 			}
-			
+
 			dtoList = new ArrayList<SettingInterfaceDto>();
 			SettingInterfaceDto sid = null;
 			String openState = null;
 			boolean allStateMatch = true;
-			for(String in : tmpMap.keySet()) {
+			for (String in : tmpMap.keySet()) {
 				sid = new SettingInterfaceDto(in);
-				
-				for(SettingLogDto sld : tmpMap.get(in)) {
-					if(null == openState) {
+
+				for (SettingLogDto sld : tmpMap.get(in)) {
+					if (null == openState) {
 						openState = sld.getIsOpen();
 					} else {
-						if(!openState.equals(sld.getIsOpen())) {
+						if (!openState.equals(sld.getIsOpen())) {
 							allStateMatch = false;
 						}
 					}
-					sid.addMethod(new SettingMethodDto(sld.getMethodName().substring(sld.getMethodName().lastIndexOf(".")+1),
-							sld.getIsOpen()));
+					sid.addMethod(new SettingMethodDto(sld.getMethodName().substring(
+							sld.getMethodName().lastIndexOf(".") + 1), sld.getIsOpen()));
 				}
-				if(allStateMatch) {
+				if (allStateMatch) {
 					sid.setIsOpen("1");
 				} else {
 					sid.setIsOpen("0");
@@ -64,8 +64,28 @@ public class SettingLogServiceImpl implements ISettingLogService {
 				dtoList.add(sid);
 			}
 		}
-		
+
 		return dtoList;
 	}
-	
+
+	public void addSetting(SettingLogDto settingLogDto) {
+		settingLogDao.addSetting(settingLogDto);
+	}
+
+	public void delSetting(String methodName) {
+		settingLogDao.delSetting(methodName);
+	}
+
+	public void udSetting(SettingLogDto settingLogDto) {
+		settingLogDao.udSetting(settingLogDto);
+	}
+
+	public void closeSetting(String isOpen) {
+		settingLogDao.closeSetting(isOpen);
+	}
+
+	public void butchUdSetting(List<SettingLogDto> lstSettingLogDto) {
+		settingLogDao.butchUdSetting(lstSettingLogDto);
+	}
+
 }

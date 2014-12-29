@@ -7,25 +7,46 @@
 		<result property="isOpen" column="isOpen" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<insert id="addSetting" parameterType="com.ydp.godview.model.SettingLogDto">  
-		insert into tbl_setting_log(`methodName`, `isOpen`)
-		values (#{methodName}, #{isOpen})
-	</insert>
-	
 	<select id="querySettings" resultMap="setting_result">
 		select
 		`methodName`,`isOpen`
 		from tbl_setting_log
 		<if test="isOpen != null">
-		where isOpen=#{isOpen}
+			where isOpen=#{isOpen}
 		</if>
 	</select>
-	
+
+	<insert id="addSetting" parameterType="com.ydp.godview.model.SettingLogDto">
+		insert into
+		tbl_setting_log(`methodName`, `isOpen`)
+		values (#{methodName},
+		#{isOpen})
+	</insert>
+
 	<delete id="delSetting">
-		delete from tbl_setting_log where methodName=#{methodName}
+		delete from tbl_setting_log where
+		methodName=#{methodName}
 	</delete>
-	
+
 	<update id="udSetting" parameterType="com.ydp.godview.model.SettingLogDto">
-		update tbl_setting_log set isOpen=#{isOpen} where methodName=#{methodName}
+		update tbl_setting_log set
+		isOpen=#{isOpen} where methodName=#{methodName}
+	</update>
+
+	<update id="closeSetting" parameterType="com.ydp.godview.model.SettingLogDto">
+		update tbl_setting_log
+		set isOpen=#{isOpen}
+	</update>
+
+	<update id="butchUdSetting" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update tbl_setting_log
+			<set>
+				isOpen=#{item.isOpen}
+			</set>
+			where methodName=#{item.methodName}
+		</foreach>
+
 	</update>
 </mapper>

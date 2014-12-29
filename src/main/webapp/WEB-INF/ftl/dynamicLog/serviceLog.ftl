@@ -30,7 +30,9 @@
                     <li><em>待完善...</em></li>
                 </ul>-->
                 <#include "/settingOperation/setting_list.ftl">
-                <input type="button" id="saveBtn" value="确认保存" size="50" />
+	                <div class="venter">
+	                	<input type="button" id="saveBtn" value="确认保存" class="cButton"/>
+	                </div>
                 </form>
 			</div>
  			<!-- 配置栏结束-->
@@ -65,12 +67,12 @@
 							</tbody>
 						</table>				
 					</div>
-					<!--<div class="paginator">
-						<form method="get" id="searchForm" action="/dynamicLog/serviceLog">
+					<div class="paginator">
+						<form method="get" id="searchForm" action="/dynamicLog/serviceLog.sc">
 						</form>
 						<#import "/common/multi_page.ftl" as page>
 						<@page.queryForm formId="searchForm" />
-					</div>-->
+					</div>
 				<#else>
 					<div class="u_noresult">暂无交易记录~</div>
 				</#if>
@@ -87,14 +89,16 @@
 	
 	$(function() {
 		$("#saveBtn").click(function(){
-			//alert("submit me");
-			//udMethods
-			var tdata={
-				//methodName: 
-			};
+			// 获取被选中的checkbox
+			var tdata = new Array(); 
+			$('input:checkbox[name=methodName]:checked').each(function(i){
+       			tdata.push($(this).val()); 
+      		});
+      		tdata.join(','); 
+
 			$.ajax({
 				type : "POST",
-				data : tdata,
+				data : "methodName=" + tdata,
 				url : "/dynamicLog/udMethods.sc",
 				error : function(XmlHttpRequest, textStatus, errorThrown) {
 					alert('保存失败:' + errorThrown);
