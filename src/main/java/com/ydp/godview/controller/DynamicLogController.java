@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ydp.godview.common.PageFinder;
 import com.ydp.godview.model.RefLogDto;
 import com.ydp.godview.model.ServiceLogDto;
+import com.ydp.godview.model.SettingInterfaceDto;
 import com.ydp.godview.service.IDynamicLogService;
+import com.ydp.godview.service.ISettingLogService;
 
 /**
  * 日志加载控制器
@@ -25,6 +27,9 @@ public class DynamicLogController {
 
 	@Resource
 	private IDynamicLogService dynamicLogService;
+	
+	@Resource
+	private ISettingLogService settingLogService;
 
 	/**
 	 * 查询接口调用的日志信息
@@ -43,8 +48,13 @@ public class DynamicLogController {
 		if (rowCount > 0) {
 			data = dynamicLogService.queryActionSerLogList();
 		}
+		
+		//查询数据库的配置信息
+		List<SettingInterfaceDto> settingList = settingLogService.listSettings();
+		
 		// 创建PageFinder对象
 		PageFinder<ServiceLogDto> pageFinder = new PageFinder<ServiceLogDto>(page, pageSize, rowCount, data);
+		modelMap.addAttribute("settingList", settingList);
 		modelMap.addAttribute("pageFinder", pageFinder);
 		return "dynamicLog/serviceLog";
 	}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydp.godview.dao.SettingLogDao">
+	<resultMap id="setting_result" type="com.ydp.godview.model.SettingLogDto">
+		<result property="methodName" column="methodName" jdbcType="VARCHAR" />
+		<result property="isOpen" column="isOpen" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="addSetting" parameterType="com.ydp.godview.model.SettingLogDto">  
+		insert into tbl_setting_log(`methodName`, `isOpen`)
+		values (#{methodName}, #{isOpen})
+	</insert>
+	
+	<select id="querySettings" resultMap="setting_result">
+		select
+		`methodName`,`isOpen`
+		from tbl_setting_log
+		<if test="isOpen != null">
+		where isOpen=#{isOpen}
+		</if>
+	</select>
+	
+	<delete id="delSetting">
+		delete from tbl_setting_log where methodName=#{methodName}
+	</delete>
+	
+	<update id="udSetting" parameterType="com.ydp.godview.model.SettingLogDto">
+		update tbl_setting_log set isOpen=#{isOpen} where methodName=#{methodName}
+	</update>
+</mapper>

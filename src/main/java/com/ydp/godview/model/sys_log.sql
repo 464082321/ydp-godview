@@ -23,6 +23,6 @@ CREATE TABLE `tbl_ref_log` (
 
 
 CREATE TABLE `tbl_setting_log` (
-	`key` VARCHAR(128) primary key NOT NULL DEFAULT '' COMMENT '需要记录调用情况的接口名称',
-	`value` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '是否打开记录功能'
+	`methodName` VARCHAR(128) primary key NOT NULL DEFAULT '' COMMENT '需要记录调用情况的接口名称',
+	`isOpen` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '是否打开记录功能'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='接口动态配置表';

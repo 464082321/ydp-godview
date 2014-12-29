@@ -8,6 +8,14 @@
 <title></title>
 <link href="../static/css/base.css" rel="stylesheet" type="text/css" />
 <link href="../static/css/user.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	#foldCbTree{float:left;width:20%;}
+	#foldCbTree ul li span{cursor:pointer;font-size:18px;}
+	ul li{list-style-type:none;}
+	ul ul li{display:none;}
+ </style>
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/setting/operation.tree.js"></script>
 </head>
 <body>
 	<div class="yg_body">
@@ -15,11 +23,15 @@
 		<div class="u_wrap">
 			<!-- 配置栏开始-->
  			<div class="u_balance_tt clearfix">
-                <ul>
+ 				<form id="saveForm" method="post" class="partner">
+                <!--<ul>
                     <li><em>接口配置面板</em></li>
                     <li><em></em></li>
                     <li><em>待完善...</em></li>
-                </ul>
+                </ul>-->
+                <#include "/settingOperation/setting_list.ftl">
+                <input type="submit" value="确认保存" class="nreg_btn" />
+                </form>
 			</div>
  			<!-- 配置栏结束-->
 			<!-- 主面板开始-->
@@ -72,5 +84,7 @@
 	function toRefLog(serviceId){
 		location.href="/dynamicLog/refLog.sc?serviceId=" + serviceId;
 	}
+	
+	
 </script>
 </html>
