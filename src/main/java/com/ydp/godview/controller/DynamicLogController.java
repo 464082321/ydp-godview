@@ -8,13 +8,16 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.dubbo.common.json.JSONObject;
 import com.ydp.godview.common.PageFinder;
 import com.ydp.godview.model.RefLogDto;
 import com.ydp.godview.model.ServiceLogDto;
 import com.ydp.godview.model.SettingInterfaceDto;
 import com.ydp.godview.service.IDynamicLogService;
 import com.ydp.godview.service.ISettingLogService;
+import com.ydp.godview.utils.JsonResult.StateCode;
 
 /**
  * 日志加载控制器
@@ -72,6 +75,19 @@ public class DynamicLogController {
 		modelMap.addAttribute("refLogList", refLogList);
 		modelMap.addAttribute("serviceId", serviceId);
 		return "dynamicLog/refLog";
+	}
+	
+	@RequestMapping("/udMethods")
+	@ResponseBody
+	public String saveMonitorMethod(String[] methodName) {
+		
+		System.out.println("进来了......");
+		
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("state", StateCode.SUCCESS);
+		jsonObj.put("msg", "");
+		jsonObj.put("data", null);
+		return jsonObj.toString();
 	}
 
 }

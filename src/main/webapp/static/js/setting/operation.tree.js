@@ -19,7 +19,8 @@ $(document).ready(function(){
 	});
 
 	//checkbox relative
-	$("input[type=checkbox][name=myckeckbox]").click(function(){
+	//$("input[type=checkbox][name=methodName]").click(function(){
+	$("input[type=checkbox]").click(function(){
 		//alert($(this).parent().parent().html());
 		var checked;
 		if($(this).is(":checked")){

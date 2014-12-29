@@ -30,7 +30,7 @@
                     <li><em>待完善...</em></li>
                 </ul>-->
                 <#include "/settingOperation/setting_list.ftl">
-                <input type="submit" value="确认保存" class="nreg_btn" />
+                <input type="button" id="saveBtn" value="确认保存" size="50" />
                 </form>
 			</div>
  			<!-- 配置栏结束-->
@@ -85,6 +85,25 @@
 		location.href="/dynamicLog/refLog.sc?serviceId=" + serviceId;
 	}
 	
-	
+	$(function() {
+		$("#saveBtn").click(function(){
+			//alert("submit me");
+			//udMethods
+			var tdata={
+				//methodName: 
+			};
+			$.ajax({
+				type : "POST",
+				data : tdata,
+				url : "/dynamicLog/udMethods.sc",
+				error : function(XmlHttpRequest, textStatus, errorThrown) {
+					alert('保存失败:' + errorThrown);
+				},
+				success : function(data) {
+					alert("save success!");
+				}
+			});
+		});
+	});
 </script>
 </html>
