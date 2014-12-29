@@ -43,6 +43,7 @@ public class SettingLogServiceImpl implements ISettingLogService {
 			String openState = null;
 			boolean allStateMatch = true;
 			for (String in : tmpMap.keySet()) {
+				allStateMatch = true;
 				sid = new SettingInterfaceDto(in);
 
 				for (SettingLogDto sld : tmpMap.get(in)) {
