@@ -6,13 +6,6 @@ body {
 	letter-spacing: 1px;
 }
 
-html,body,div,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,p,pre,span,a,img,form,fieldset,label,table,th,td,.btn,.rbtn
-	{
-	margin: 0;
-	padding: 0;
-	list-style: none
-}
-
 img,iframe {
 	border: 0
 }
@@ -708,7 +701,7 @@ a {
 /*遮罩*/
 .masklayer {
 	background: rgba(0, 0, 0, 0.4);
-	filter: progid:  DXImageTransform.Microsoft.Gradient(GradientType=0,
+	filter: progid:    DXImageTransform.Microsoft.Gradient(GradientType=0,
 		StartColorStr='#99000000', EndColorStr='#99000000');
 	position: absolute;
 	width: 100%;
@@ -2584,7 +2577,7 @@ em,i {
 	background-image: none;
 	background: url(../images/mark/soldout.png) top center repeat;
 	_background: none;
-	_filter: progid:  DXImageTransform.Microsoft.AlphaImageLoader(src="/static/images/mark/soldout.png");
+	_filter: progid:    DXImageTransform.Microsoft.AlphaImageLoader(src="/static/images/mark/soldout.png");
 }
 
 .salepic .markSoldOut .soldoutimg {
@@ -3715,7 +3708,7 @@ list-style-type: square; */
 /*直销套餐*/
 .soldout_big_img {
 	background: url(../images/theEnd.png) 0 0 no-repeat;
-	_filter: progid:  DXImageTransform.Microsoft.AlphaImageLoader(src='static/images/theEnd.png');
+	_filter: progid:    DXImageTransform.Microsoft.AlphaImageLoader(src='static/images/theEnd.png');
 	/* IE6 */
 	_background-image: none;
 	/* IE6 */
@@ -3787,7 +3780,7 @@ list-style-type: square; */
 	height: 22px;
 	border: 1px solid #ccc;
 	background: #f5f5f5;
-	filter: progid:  DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9',
+	filter: progid:    DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9',
 		endColorstr='#f0f0f0');
 	background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9),
 		to(#f0f0f0));
@@ -3866,7 +3859,7 @@ list-style-type: square; */
 	-moz-filter: grayscale(100%);
 	-ms-filter: grayscale(100%);
 	-o-filter: grayscale(100%);
-	filter: progid:  DXImageTransform.Microsoft.BasicImage(grayscale=1);
+	filter: progid:    DXImageTransform.Microsoft.BasicImage(grayscale=1);
 	_filter: none;
 }
 
@@ -4084,4 +4077,36 @@ list-style-type: square; */
 /*隐藏，这行请放最后，所有样式应放于这行之前，谢谢  >>>:guoran 20140815*/
 .hide {
 	display: none;
+}
+/*左侧导航*/
+.u_nav {
+	width: 135px;
+	float: left;
+	padding: 15px;
+	position: absolute;
+}
+
+.u_nav h2 {
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.u_nav li {
+	padding: 5px 5px;
+	font-size: 12px;
+	background: url(../images/sf_user.png) right -86px no-repeat;
+	margin-bottom: 5px;
+}
+
+.u_main {
+	border-left: 1px #dfdfdf solid;
+	margin-left: 135px;
+	background: #fff;
+	padding: 20px;
+	min-height: 250px;
+}
+
+.u_nav li.on {
+	background-position: right -112px;
+	color: #f80;
 }

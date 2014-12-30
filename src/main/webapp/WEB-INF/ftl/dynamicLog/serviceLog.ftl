@@ -8,12 +8,6 @@
 <title></title>
 <link href="../static/css/base.css" rel="stylesheet" type="text/css" />
 <link href="../static/css/user.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-	#foldCbTree{float:left;width:20%;}
-	#foldCbTree ul li span{cursor:pointer;font-size:18px;}
-	ul li{list-style-type:none;}
-	ul ul li{display:none;}
- </style>
 <script type="text/javascript" src="../static/js/jquery.min.js"></script>
 <script type="text/javascript" src="../static/js/setting/operation.tree.js"></script>
 </head>
@@ -21,22 +15,7 @@
 	<div class="yg_body">
 		<!-- 分类路径 end-->
 		<div class="u_wrap">
-			<!-- 配置栏开始-->
- 			<div class="u_balance_tt clearfix">
- 				<form id="saveForm" method="post" class="partner">
-                <!--<ul>
-                    <li><em>接口配置面板</em></li>
-                    <li><em></em></li>
-                    <li><em>待完善...</em></li>
-                </ul>-->
-                <#include "/settingOperation/setting_list.ftl">
-	                <div class="venter">
-	                	<input type="button" id="saveBtn" value="确认保存" class="cButton"/>
-	                	<input type="button" id="udRMdBtn" value="更新API方法" class="cButton"/>
-	                </div>
-                </form>
-			</div>
- 			<!-- 配置栏结束-->
+			<#include "/common/memu.ftl">
 			<!-- 主面板开始-->
 			<div class="u_main" id="statementSearch">
 				<#if pageFinder?? && pageFinder.data?? && (pageFinder.data?size > 0)>
@@ -49,7 +28,7 @@
 								<th width="8%">请求IP</th>
 								<th width="25%">返回结果</th>
 								<th width="10%">异常信息</th>
-								<th width="5%">请求时长</th>
+								<th width="8%">请求时长</th>
 								<th width="5%">操作</th>
 							</thead>
 							<tbody>
@@ -61,7 +40,7 @@
 										<td>${vo.reqIp!""}</td>
 										<td>${vo.respData!""}</td>
 										<td>${vo.errMsg!""}</td>
-										<td>${vo.accessPeriod!""}</td>
+										<td>${vo.accessPeriod!""}mm</td>
 										<td><a href="javascript:toRefLog('${vo.id!""}');" class="f_blue">查看</a></td>
 									</tr>
 								</#list>
@@ -87,42 +66,5 @@
 	function toRefLog(serviceId){
 		location.href="/dynamicLog/refLog.sc?serviceId=" + serviceId;
 	}
-	
-	$(function() {
-		$("#saveBtn").click(function(){
-			// 获取被选中的checkbox
-			var tdata = new Array(); 
-			$('input:checkbox[name=methodName]:checked').each(function(i){
-       			tdata.push($(this).val()); 
-      		});
-      		tdata.join(','); 
-
-			$.ajax({
-				type : "POST",
-				data : "methodName=" + tdata,
-				url : "/dynamicLog/udMethods.sc",
-				error : function(XmlHttpRequest, textStatus, errorThrown) {
-					alert('保存失败:' + errorThrown);
-				},
-				success : function(data) {
-					alert("save success!");
-				}
-			});
-		});
-		
-		//更新远程API的方法列表
-		$("#udRMdBtn").click(function(){
-			$.ajax({
-				type : "POST",
-				url : "/dynamicLog/udSettings.sc",
-				error : function(XmlHttpRequest, textStatus, errorThrown) {
-					alert('保存失败:' + errorThrown);
-				},
-				success : function(data) {
-					alert("save success!");
-				}
-			});
-		});
-	});
 </script>
 </html>

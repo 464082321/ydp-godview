@@ -12,7 +12,7 @@ import com.ydp.godview.model.ServiceLogDto;
  * 
  * @author he.f1
  */
-public interface SysLogDao {
+public interface DynamicLogDao {
 	
 	/**
 	 * 查询接口调用的记录数

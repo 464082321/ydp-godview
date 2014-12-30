@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.ydp.godview.dao.SysLogDao;
+import com.ydp.godview.dao.DynamicLogDao;
 import com.ydp.godview.model.RefLogDto;
 import com.ydp.godview.model.ServiceLogDto;
 import com.ydp.godview.service.IDynamicLogService;
@@ -30,7 +30,7 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 	protected final Logger logger = Logger.getLogger(super.getClass().getName());
 
 	@Resource
-	private SysLogDao sysLogDao;
+	private DynamicLogDao sysLogDao;
 
 	/**
 	 * 查询接口调用的记录数
