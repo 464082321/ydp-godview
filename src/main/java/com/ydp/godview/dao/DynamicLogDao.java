@@ -26,7 +26,7 @@ public interface DynamicLogDao {
 	 * 
 	 * @return List<ActionServiceLog>
 	 */
-	public List<ServiceLogDto> queryActionSerLogList();
+	public List<ServiceLogDto> queryActionSerLogList(@Param("start")int start, @Param("pageSize")int pageSize);
 	
 	/**
 	 * 查询第三方接口调用的日志信息

@@ -25,7 +25,7 @@ public interface IDynamicLogService {
 	 * 
 	 * @return List<ActionServiceLog>
 	 */
-	public List<ServiceLogDto> queryActionSerLogList();
+	public List<ServiceLogDto> queryActionSerLogList(int start, int pageSize);
 	
 	/**
 	 * 查询第三方接口调用的日志信息

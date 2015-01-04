@@ -91,8 +91,7 @@
 		pageForm.submit();
 	}
 	
-	function createInput(actionUrl,pageForm)
-	{
+	function createInput(actionUrl,pageForm){
 		var array = getQueryString(actionUrl);
 		if(array==null) return;
 		for(var i = 0; i < array.length; i++){
