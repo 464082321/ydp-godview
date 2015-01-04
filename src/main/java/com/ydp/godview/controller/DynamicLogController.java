@@ -102,6 +102,10 @@ public class DynamicLogController {
 			}
 			settingLogService.butchUdSetting(lstSettingLogDto);
 		}
+		
+		//最后整体刷新一次远程ydp-core中需要监控的方法集合
+		settingLogService.batchUdRemoteMethods();
+		
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("state", StateCode.SUCCESS);
 		jsonObj.put("msg", "");
@@ -113,6 +117,19 @@ public class DynamicLogController {
 	@ResponseBody
 	public String udSettings() {
 		settingLogService.updateSettingsByRemoteApi();
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("state", StateCode.SUCCESS);
+		jsonObj.put("msg", "");
+		jsonObj.put("data", null);
+		return jsonObj.toString();
+	}
+	
+	/**
+	 * 更新方法到远程
+	 * @return
+	 */
+	public String udSettingToRemote() {
+		System.out.println("更新方法到远程......");
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("state", StateCode.SUCCESS);
 		jsonObj.put("msg", "");

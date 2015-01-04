@@ -7,11 +7,22 @@ package com.ydp.godview.model;
  */
 public class SettingLogDto {
 	
+	/** 主键id **/
+	private String id;
+	
 	/** id,not null primary key **/
 	private String methodName;
 	
 	/** 1：为此方法开启；0：此方法关闭 **/
 	private String isOpen;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getMethodName() {
 		return methodName;

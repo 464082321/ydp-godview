@@ -50,6 +50,11 @@ public interface ISettingLogService {
 	public void butchUdSetting(List<SettingLogDto> lstSettingLogDto);
 	
 	/**
+	 * 根据本地的数据库配置刷新远程缓存中的配置信息
+	 */
+	public void batchUdRemoteMethods();
+	
+	/**
 	 * 根据远程接口获取本地的设置数据
 	 */
 	public void updateSettingsByRemoteApi();

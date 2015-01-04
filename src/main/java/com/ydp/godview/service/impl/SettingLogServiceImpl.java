@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.ydp.godview.dao.SettingLogDao;
 import com.ydp.godview.model.SettingInterfaceDto;
@@ -32,34 +33,34 @@ public class SettingLogServiceImpl implements ISettingLogService {
 			String interfaceName;
 			List<SettingLogDto> mapLogList = null;
 			for (SettingLogDto sld : dbList) {
-				interfaceName = sld.getMethodName().substring(0, sld.getMethodName().lastIndexOf("."));
-				if (tmpMap.containsKey(interfaceName)) {
-					tmpMap.get(interfaceName).add(sld);
-				} else {
-					mapLogList = new ArrayList<SettingLogDto>();
-					mapLogList.add(sld);
-					tmpMap.put(interfaceName, mapLogList);
+				interfaceName = getVisibleName(sld.getMethodName(), 1);
+				if(StringUtils.hasText(interfaceName)) {
+					if (tmpMap.containsKey(interfaceName)) {
+						tmpMap.get(interfaceName).add(sld);
+					} else {
+						mapLogList = new ArrayList<SettingLogDto>();
+						mapLogList.add(sld);
+						tmpMap.put(interfaceName, mapLogList);
+					}
 				}
 			}
 
 			dtoList = new ArrayList<SettingInterfaceDto>();
 			SettingInterfaceDto sid = null;
-			String openState = null;
 			boolean allStateMatch = true;
+			String methodName = null;
 			for (String in : tmpMap.keySet()) {
 				allStateMatch = true;
 				sid = new SettingInterfaceDto(in);
 
 				for (SettingLogDto sld : tmpMap.get(in)) {
-					if (null == openState) {
-						openState = sld.getIsOpen();
-					} else {
-						if (!openState.equals(sld.getIsOpen())) {
-							allStateMatch = false;
-						}
+					if ("0".equals(sld.getIsOpen())) {
+						allStateMatch = false;
 					}
-					sid.addMethod(new SettingMethodDto(sld.getMethodName().substring(
-							sld.getMethodName().lastIndexOf(".") + 1), sld.getIsOpen()));
+					methodName = getVisibleName(sld.getMethodName(), 0);
+					if(StringUtils.hasText(methodName)) {
+						sid.addMethod(new SettingMethodDto(methodName, sld.getIsOpen()));
+					}
 				}
 				if (allStateMatch) {
 					sid.setIsOpen("1");
@@ -71,6 +72,23 @@ public class SettingLogServiceImpl implements ISettingLogService {
 		}
 
 		return dtoList;
+	}
+	
+	/** type 1:获取接口名字,0:获取方法字符串 **/
+	private String getVisibleName(String longMethodName, int type) {
+		if(StringUtils.hasText(longMethodName)) {
+			if(longMethodName.indexOf("(") > 0) {
+				if(type==1) {
+					String subStr = longMethodName.substring(0, longMethodName.indexOf("("));
+					return subStr.substring(0, subStr.lastIndexOf("."));
+				} else if(type==0) {
+					String subStr = longMethodName.substring(0, longMethodName.indexOf("("));
+					int dotIndex = subStr.lastIndexOf(".");
+					return longMethodName.substring(dotIndex + 1);
+				}
+			}
+		}
+		return null;
 	}
 
 	public void addSetting(SettingLogDto settingLogDto) {
@@ -92,6 +110,15 @@ public class SettingLogServiceImpl implements ISettingLogService {
 	public void butchUdSetting(List<SettingLogDto> lstSettingLogDto) {
 		settingLogDao.butchUdSetting(lstSettingLogDto);
 	}
+	
+	public void batchUdRemoteMethods() {
+		List<SettingLogDto> dbSettings = settingLogDao.querySettings("1");
+		List<String> methodNames = new ArrayList<String>();
+		for(SettingLogDto sld : dbSettings) {
+			methodNames.add(sld.getMethodName());
+		}
+		actionLogApi.batchUdMonitorMethod(methodNames);
+	}
 
 	public void updateSettingsByRemoteApi() {
 		Map<String, List<String>> apis = actionLogApi.listMonitorMethods();
@@ -104,6 +131,7 @@ public class SettingLogServiceImpl implements ISettingLogService {
 			}
 			
 			List<SettingLogDto> needToSaveList = new ArrayList<SettingLogDto>();
+			List<String> apiStrSettings = new ArrayList<String>();
 			SettingLogDto needToSave = null;
 			for(String interfaceName : apis.keySet()) {
 				for(String method : apis.get(interfaceName)) {
@@ -113,23 +141,26 @@ public class SettingLogServiceImpl implements ISettingLogService {
 						needToSave.setIsOpen("0");
 						needToSaveList.add(needToSave);
 					}
+					
+					//为下面删除多余的Settings做准备
+					apiStrSettings.add(interfaceName + "." + method);
 				}
 			}
 			
 			if(null != needToSaveList && needToSaveList.size() > 0) {
 				for(SettingLogDto sld : needToSaveList) {
-//					settingLogDao.addSetting(sld);
-					System.out.println(sld.getMethodName());
+					//System.out.println("sld:" + sld.getMethodName());
+					settingLogDao.addSetting(sld);
 				}
 			}
 			
-//			List<SettingLogDto> newSettings = settingLogDao.querySettings(null);
-//			newSettings.removeAll(dbSettings);
-//			
-//			//删掉多余的Settings
-//			for(SettingLogDto sld: newSettings) {
-//				settingLogDao.delSetting(sld.getMethodName());
-//			}
+			
+			//删除多余的Settings
+			for(SettingLogDto sld : dbSettings) {
+				if(!apiStrSettings.contains(sld.getMethodName())) {
+					settingLogDao.delSetting(sld.getMethodName());
+				}
+			}
 		}
 	}
 }

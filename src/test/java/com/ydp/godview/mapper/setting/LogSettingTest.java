@@ -16,9 +16,42 @@ public class LogSettingTest extends AbstractTestMapper {
 			SettingLogDao settingLogDao = sqlSession.getMapper(SettingLogDao.class);
 			
 			SettingLogDto settingLogDto = new SettingLogDto();
-			settingLogDto.setMethodName("com.john.DInterface.dmethod()");
+			settingLogDto.setMethodName("com.john.CInterface.cmethod()");
 			settingLogDto.setIsOpen("0");
 			settingLogDao.addSetting(settingLogDto);
+			
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void addSettingForTest() {
+		try {
+			SettingLogDao settingLogDao = sqlSession.getMapper(SettingLogDao.class);
+			
+			SettingLogDto settingLogDto = null;
+			settingLogDto = new SettingLogDto();
+			settingLogDto.setMethodName("com.john.AInterface.amethod()");
+			settingLogDto.setIsOpen("1");
+			settingLogDao.addSetting(settingLogDto);
+			
+			settingLogDto = new SettingLogDto();
+			settingLogDto.setMethodName("com.john.AInterface.a1method()");
+			settingLogDto.setIsOpen("1");
+			settingLogDao.addSetting(settingLogDto);
+			
+			settingLogDto = new SettingLogDto();
+			settingLogDto.setMethodName("com.john.BInterface.bmethod()");
+			settingLogDto.setIsOpen("1");
+			settingLogDao.addSetting(settingLogDto);
+			
+			settingLogDto = new SettingLogDto();
+			settingLogDto.setMethodName("com.john.CInterface.cmethod()");
+			settingLogDto.setIsOpen("1");
+			settingLogDao.addSetting(settingLogDto);
+			
 			sqlSession.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

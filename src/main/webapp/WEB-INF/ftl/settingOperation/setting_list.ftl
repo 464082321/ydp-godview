@@ -41,6 +41,7 @@
 						<div style="float:right">
 							<input type="button" id="saveBtn" value="确认保存" class="subBtn"/>
 	                		<input type="button" id="udRMdBtn" value="更新API方法" class="subBtn"/>
+	                		<input type="button" id="udDRBtn" value="更新方法到远程" class="subBtn"/>
 	                	</div>
 					</div>
                 </form>
@@ -74,6 +75,20 @@
 		
 		//更新远程API的方法列表
 		$("#udRMdBtn").click(function(){
+			$.ajax({
+				type : "POST",
+				url : "/dynamicLog/udSettings.sc",
+				error : function(XmlHttpRequest, textStatus, errorThrown) {
+					alert('保存失败:' + errorThrown);
+				},
+				success : function(data) {
+					alert("save success!");
+				}
+			});
+		});
+		
+		//更新方法到远程
+		$("#udDRBtn").click(function(){
 			$.ajax({
 				type : "POST",
 				url : "/dynamicLog/udSettings.sc",
