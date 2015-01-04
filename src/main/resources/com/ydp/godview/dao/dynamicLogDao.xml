@@ -30,12 +30,13 @@
 		select count(1) from tbl_service_log where 1 = 1
 	</select>
 
-	<select id="queryActionSerLogList" resultMap="ser_result">
+	<select id="queryActionSerLogList" parameterType="int" resultMap="ser_result">
 		select
 		id,
 		interface_name, req_method, req_params, req_ip, resp_data,
 		access_period
 		from tbl_service_log
+		limit #{start}, #{pageSize}
 	</select>
 
 	<select id="queryActionRefLogList" parameterType="String"

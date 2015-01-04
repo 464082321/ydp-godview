@@ -46,8 +46,8 @@ public class DynamicLogServiceImpl implements IDynamicLogService {
 	 * 
 	 * @return List<ActionServiceLog>
 	 */
-	public List<ServiceLogDto> queryActionSerLogList() {
-		return sysLogDao.queryActionSerLogList();
+	public List<ServiceLogDto> queryActionSerLogList(int start, int pageSize) {
+		return sysLogDao.queryActionSerLogList(start, pageSize);
 	}
 
 	/**

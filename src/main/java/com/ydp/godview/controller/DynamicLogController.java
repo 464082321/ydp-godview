@@ -45,13 +45,14 @@ public class DynamicLogController {
 	 */
 	@RequestMapping("/serviceLog")
 	public String serviceLogList(String pageNo, ModelMap modelMap) throws Exception {
-		int pageSize = 20;
+		int pageSize = 6;
 		int page = pageNo == null ? 1 : Integer.valueOf(pageNo);
 		// 根据结算单主键id查询结算单明细
 		List<ServiceLogDto> data = new ArrayList<ServiceLogDto>();
 		int rowCount = dynamicLogService.queryActionSerLogCount();
 		if (rowCount > 0) {
-			data = dynamicLogService.queryActionSerLogList();
+			int start = (page - 1) * pageSize;
+			data = dynamicLogService.queryActionSerLogList(start, pageSize);
 		}
 
 		// 查询数据库的配置信息

@@ -8,8 +8,7 @@
 <title></title>
 <link href="../static/css/base.css" rel="stylesheet" type="text/css" />
 <link href="../static/css/user.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../static/js/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/setting/operation.tree.js"></script>
+<!--<link href="../static/css/channel.css" rel="stylesheet" type="text/css" />-->
 </head>
 <body>
 	<div class="yg_body">
@@ -36,7 +35,18 @@
 									<tr>
 										<td>${vo.interfaceName!""}</td>
 										<td>${vo.reqMethod!""}</td>
-										<td>${vo.reqParams!""}</td>
+										<td>${vo.reqParams!""}
+											<!--<dl>
+									            <dd style="height:30px">
+									                <li>
+									                	${vo.reqParams!""}
+										                <#if vo.reqParams?? && vo.reqParams?length &gt; 8>
+										                	<a href="javascript:;" class="moreLink down" style="display:inline">更多<i class="list_bg"></i></a>
+										                </#if>
+									                </li>
+									            </dd>
+								       	 	</dl>-->
+										</td>
 										<td>${vo.reqIp!""}</td>
 										<td>${vo.respData!""}</td>
 										<td>${vo.errMsg!""}</td>
@@ -48,8 +58,7 @@
 						</table>				
 					</div>
 					<div class="paginator">
-						<form method="get" id="searchForm" action="/dynamicLog/serviceLog.sc">
-						</form>
+						<form method="get" id="searchForm" action="/dynamicLog/serviceLog.sc"></form>
 						<#import "/common/multi_page.ftl" as page>
 						<@page.queryForm formId="searchForm" />
 					</div>
@@ -61,6 +70,10 @@
 			<!-- 主面板结束-->
 		</div>
 	</div>
+	<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/js/ydp.common.js"></script>
+	<!--<script type="text/javascript" src="../static/js/ydp.search.sr.js"></script>-->
+	<script type="text/javascript" src="../static/js/setting/operation.tree.js"></script>
 </body>
 <script>
 	function toRefLog(serviceId){
